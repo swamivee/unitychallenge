@@ -1,4 +1,4 @@
-package com.unity.challenge.mapreduce.driver;
+package com.unity.challenge.common;
 
 import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
@@ -12,7 +12,7 @@ public class CommandLineParseUtil {
 
   private static final Log LOG = LogFactory.getLog(CommandLineParseUtil.class);
 
-  static String[] parse(String[] args) {
+  public static String[] parse(String[] args) {
     CommandLineParser parser = new BasicParser();
     int noOfRecords = 100;
     Options options = new Options();
@@ -23,7 +23,7 @@ public class CommandLineParseUtil {
 
     String inputDirectory = null;
     String outputDirectory = null;
-    boolean forceRun = true;
+    boolean forceRun = false;
     try {
       CommandLine cmdLine = parser.parse(options, args);
 

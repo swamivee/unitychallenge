@@ -1,6 +1,9 @@
 package com.unity.challenge.reduce;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.PriorityQueue;
 
 import org.apache.commons.logging.Log;
@@ -70,13 +73,18 @@ public class AverageCSVReduce extends Reducer<PairWritable, MetricPair, Text, Nu
 
   @Override
   public void cleanup(Context context) throws IOException {
-    PairMetric metric = null;
+    /*
+     * Reverse the order of records to descending order from queue to list with reverse order
+     * before writing into the output file
+     */
     Text output = new Text();
+    List<PairMetric> reverseOrder=new ArrayList<PairMetric>();
+    reverseOrder.addAll(queue);
+    Collections.sort(reverseOrder,Collections.reverseOrder());
     try {
-      while (!queue.isEmpty()) {
+      for(PairMetric pm:reverseOrder) {
         context.getCounter(ReducerCounters.TOTAL_OUTPUT_RECORDS).increment(1);
-        metric = queue.poll();
-        output.set(metric.toString());
+        output.set(pm.toString());
         context.write(output, NullWritable.get());
       }
       super.cleanup(context);

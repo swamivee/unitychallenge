@@ -67,8 +67,8 @@ public class AirlineDelayAverageMR extends Configured implements Tool {
     averageJob.setOutputValueClass(NullWritable.class);
     averageJob.setInputFormatClass(TextInputFormat.class);
     averageJob.setCombinerClass(AverageCSVCombiner.class);
-    FileOutputFormat.setCompressOutput(averageJob, true);
-    FileOutputFormat.setOutputCompressorClass(averageJob, GzipCodec.class);
+    //FileOutputFormat.setCompressOutput(averageJob, true);
+    //FileOutputFormat.setOutputCompressorClass(averageJob, GzipCodec.class);
     FileSystem fs = FileSystem.get(conf);
     Path inputPath = new Path(inputDirectory);
     if (!fs.exists(inputPath)) {

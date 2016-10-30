@@ -28,16 +28,16 @@ public class AverageCSVMapperTest {
   public void mapperTest() throws IOException, InterruptedException {
     Text t1 =
         new Text(
-            "2006,1,11,3,743,745,1024,1018,US,343,N657AW,281,273,223,-6,-2,ATL,PHX,1587,45,13,0,,0,0,0,0,0,0");
+            "2006,1,11,3,743,745,1024,1018,US,343,N657AW,281,273,223,6,-2,ATL,PHX,1587,45,13,0,,0,0,0,0,0,0");
     Text t2 =
         new Text(
-            "2006,1,11,3,743,745,1024,1018,US,343,N657AW,281,273,223,6,-2,SFO,BOS,1587,45,13,0,,0,0,0,0,0,0");
+            "2006,1,11,3,743,745,1024,1018,US,343,N657AW,281,273,223,-6,-2,SFO,BOS,1587,45,13,0,,0,0,0,0,0,0");
     Text t3 =
         new Text(
             "2006,1,11,3,743,745,1024,1018,US,343,N657AW,281,273,223,NA,-2,SFO,BOS,1587,45,13,0,,0,0,0,0,0,0");
     Text t4 =
         new Text(
-            "2006,1,11,3,743,745,1024,1018,US,343,N657AW,281,273,223,-2,-2,ATL,PHX,1587,45,13,0,,0,0,0,0,0,0");
+            "2006,1,11,3,743,745,1024,1018,US,343,N657AW,281,273,223,2,-2,ATL,PHX,1587,45,13,0,,0,0,0,0,0,0");
     mapDriver.withInput(new LongWritable(1l), t1).withInput(new LongWritable(2l), t2)
         .withInput(new LongWritable(3l), t3).withInput(new LongWritable(4l), t4)
         .withOutput(new PairWritable(new Pair<String, String>("ATL", "PHX")), new MetricPair(6))

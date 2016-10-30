@@ -41,8 +41,11 @@ public class AverageCSVReducerTest {
 
     List<MetricPair> values1 = new ArrayList<MetricPair>();
     values1.add(mp3);
-    reducerDriver.withInput(wr1, values).withOutput(new Text("ATL-PHX,4"), NullWritable.get())
-        .withInput(wr2, values1).withOutput(new Text("SFO-BOS,10"), NullWritable.get()).runTest();
+    reducerDriver.withInput(wr1, values)
+        .withInput(wr2, values1)
+        .withOutput(new Text("SFO-BOS,10"), NullWritable.get())
+        .withOutput(new Text("ATL-PHX,4"), NullWritable.get())
+        .runTest();
     Assert.assertEquals(
         reducerDriver.getCounters()
             .findCounter(AverageCSVReduce.ReducerCounters.TOTAL_INPUT_RECORDS).getValue(), 3);

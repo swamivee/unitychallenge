@@ -13,7 +13,7 @@ import com.unity.challenge.common.PairWritable;
 
 /**
  * Initial mapper to read the CSV validate the data and filter out the mapper records which
- * have +positive or 'NA' ArrDelay out
+ * have +negative or 'NA' ArrDelay out
  * @author sveerama
  *
  */
@@ -62,11 +62,11 @@ public class AverageCSVMapper extends Mapper<LongWritable, Text, PairWritable, M
               && StringUtils.isNotBlank(destination)) {
 
             Double timeDelay = Double.parseDouble(columns[14]);
-            if (timeDelay >= 0) {
-              //If the ArrDelay >0 then there is no delay hence not interested in these records
+            if (timeDelay <= 0) {
+              //If the ArrDelay <=0 then there is no delay hence not interested in these records
               context.getCounter(MapperCounters.NO_DELAY_RECORDS).increment(1);
             } else {
-              metricPair.set(Math.abs(timeDelay));
+              metricPair.set(timeDelay);
               keyPair.set(origin, destination);
               context.getCounter(MapperCounters.TOTAL_OUTPUT_RECORDS).increment(1);
               context.write(keyPair, metricPair);

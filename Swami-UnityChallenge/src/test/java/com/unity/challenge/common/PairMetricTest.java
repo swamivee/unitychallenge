@@ -1,6 +1,7 @@
 package com.unity.challenge.common;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.PriorityQueue;
 
@@ -25,6 +26,7 @@ public class PairMetricTest {
     lst.add(pm4);
     lst.add(pm5);
     PriorityQueue<PairMetric> queue = new PriorityQueue<PairMetric>();
+    List<PairMetric> list=new ArrayList<PairMetric>();
     for (PairMetric pm : lst) {
       queue.offer(pm);
       if (queue.size() > 2) {
@@ -32,11 +34,15 @@ public class PairMetricTest {
       }
 
     }
-
+    list.addAll(queue);
     Assert.assertTrue(queue.poll().averageTime == 4.0);
     Assert.assertTrue(queue.poll().averageTime == 5.0);
     Assert.assertTrue(queue.isEmpty());
-
+    Assert.assertEquals(list.get(0).averageTime,4.0);
+    Assert.assertEquals(list.get(1).averageTime,5.0);
+    Collections.sort(list,Collections.reverseOrder());
+    Assert.assertEquals(list.get(0).averageTime,5.0);
+    Assert.assertEquals(list.get(1).averageTime,4.0);
   }
 
   @Test
